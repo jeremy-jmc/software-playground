@@ -52,6 +52,7 @@ def test_classification():
 
     im = Image.open('../img/capibara.jpg')
     # im = im.resize((256, 256))
+    print(im.size)
     im = preprocess(im).unsqueeze(0).to(device)
     print(im.shape)
 
@@ -79,4 +80,5 @@ def test_instance_segmentation():
             col_width=20)
     
 if __name__ == "__main__":
-    test_instance_segmentation()
+    test_classification()
+    # test_instance_segmentation()

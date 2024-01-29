@@ -1,0 +1,46 @@
+<!-- frontend/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Prediction</title>
+</head>
+<body>
+    <form id="predict-form">
+        <input type="file" id="image-file" accept="image/*" required>
+        <button type="submit">Predict</button>
+    </form>
+
+    <div id="result"></div>
+    <div id="image-preview"></div>
+
+    <script>
+        document.getElementById('predict-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            var fileInput = document.getElementById('image-file');
+            var formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+            try {
+                const response = await fetch('http://localhost:8000/predict', {
+                    method: 'POST',
+                    body: formData,
+                });
+                console.log(response);
+                const data = await response.json();
+                console.log(data['category']);
+                document.getElementById('result').textContent = 'Predicted category: ' + data['category'];
+
+                // Display the uploaded image
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var imagePreview = document.getElementById('image-preview');
+                    imagePreview.innerHTML = '<img src="' + e.target.result + '" alt="Uploaded Image">';
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
+</body>
+</html>

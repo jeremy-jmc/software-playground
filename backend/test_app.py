@@ -12,7 +12,7 @@ def client():
 
 def test_predict_endpoint(client):
     # Open an image file in binary mode
-    with open("path/to/your/test/image.jpg", "rb") as img_file:
+    with open("../img/capibara.jpg", "rb") as img_file:
         # Send a POST request to the /predict endpoint with the image file
         response = client.post("/predict", files={"file": img_file})
 

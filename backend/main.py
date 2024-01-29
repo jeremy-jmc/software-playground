@@ -6,11 +6,14 @@ https://towardsdatascience.com/the-deep-learning-inference-acceleration-blog-ser
 https://towardsdatascience.com/efficient-inference-in-deep-learning-where-is-the-problem-4ad59434fe36   
 https://debuggercafe.com/train-pytorch-retinanet-on-custom-dataset/
 https://towardsdatascience.com/boosting-pytorch-inference-on-cpu-from-post-training-quantization-to-multithreading-6820ac7349bb
+https://stackoverflow.com/questions/74167896/what-cloud-run-cpu-and-memory-limits-do-app-engine-standard-instance-classes-map
+https://cloud.google.com/appengine/docs/standard?hl=es-419#instance_classes
 """
 
 from fastapi import FastAPI
 # from fastapi import WebSocket, WebSocketDisconnect
 from fastapi import File, UploadFile, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from typing import List
 from pydantic import BaseModel
 import time
@@ -23,18 +26,28 @@ import os
 import sys
 import logging
 import torch
-from torchvision.models import resnet50, ResNet50_Weights
+from PIL import Image
+from torchvision.models import resnet101, ResNet101_Weights
 
 device = torch.device('cpu')
-weights = ResNet50_Weights.DEFAULT
+weights = ResNet101_Weights.DEFAULT
 preprocess = weights.transforms()
-model = resnet50(weights=weights).to(device)
+model = resnet101(weights=weights).to(device)
 model.eval()
 
 
 app = FastAPI()
 logging.basicConfig(level=logging.DEBUG)
+logging.getLogger('multipart.multipart').setLevel(logging.WARNING)
 logger = logging.getLogger(__name__)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
+)
 
 @app.get("/")
 async def root():
@@ -42,35 +55,36 @@ async def root():
 
 # receive an image from the client and output prediction with the model
 @app.post("/predict")
-async def predict(file: UploadFile = File(...)):
+async def predict(file: UploadFile = File(...)) -> dict:
     try:
         # convert file to OpenCV image
         contents = await file.read()
+        # logging.info(file)
+        # logging.info(vars(file))
+        # logging.info(dir(file))
+        
+        # handle received
         nparr = np.frombuffer(contents, np.uint8)
         img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-        
-        # resize image
-        img = cv2.resize(img, (256, 256))
-        
-        # convert image to tensor
-        img = torch.from_numpy(img).permute(2, 0, 1).unsqueeze(0).float()
-        
+        img = Image.fromarray(img)
+
         # preprocess image
-        img = preprocess(img)
+        img = preprocess(img).unsqueeze(0).to(device)
+        logging.info(img.shape)
         
         # run inference
         with torch.no_grad():
-            out = model(img)
+            out = model(img).cpu()
             class_id = out.argmax(dim=1).item()
             score = out[0, class_id].item()
         
         category = weights.meta["categories"][class_id]
 
-        # Logging statements
-        logger.debug('Prediction successful.')
-        logger.debug('Class ID: %d', class_id)
-        logger.debug('Predicted: %s', category)
-        logger.debug('Score: %f', score)
+        # # Logging statements
+        # logger.debug('Prediction successful.')
+        # logger.debug('Class ID: %d', class_id)
+        # logger.debug('Predicted: %s', category)
+        # logger.debug('Score: %f', score)
 
         return {"class_id": class_id, "score": score, "category": category}
     
@@ -88,4 +102,6 @@ docker build -t your-image-name -f path-to-your-Dockerfile .
 docker run -it --cpus=2 --memory=4g -p 8000:8000 your-image-name
 
 ab -n 100 -c 10 http://localhost:8000/your-api-endpoint
+
+https://www.youtube.com/watch?v=bcYmfHOrOPM
 """

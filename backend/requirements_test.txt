@@ -2,3 +2,4 @@ locust
 pytest 
 pytest-asyncio 
 coverage
+pytest-cov

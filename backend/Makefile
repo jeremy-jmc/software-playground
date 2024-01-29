@@ -14,6 +14,8 @@ stress:
 # https://www.inmotionhosting.com/support/edu/wordpress/performance/stress-test-with-apachebench/
 	sudo apt install apache2-utils -y
 	ab -n 10000 -c 100 -g test.txt http://localhost:$(TO_PORT)/
+tests:
+	pytest --cov=main test_app.py --cov-report=xml:cov.xml -v
 clean:
 	find . -name '__pycache__' -type d -exec rm -rf {} +
 	find . -name 'node_modules' -type d -exec rm -rf {} +
@@ -22,7 +24,7 @@ clean:
 	rm -f *.pyc
 	rm -f *.pyo
 	rm -f *~
-	docker ps -a --format "{{.Names}}" | grep "healer-" | xargs docker stop | xargs docker rm || true
+	docker ps -a --format "{{.Names}}" | xargs docker stop | xargs docker rm || true
 	docker ps -a --filter "ancestor=$$(docker images -f "dangling=true" -q)" -q | xargs docker rm || true
 	docker rmi $$(docker images --filter "dangling=true" -q) || true
 	docker images
