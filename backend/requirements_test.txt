@@ -1,0 +1,4 @@
+locust
+pytest 
+pytest-asyncio 
+coverage

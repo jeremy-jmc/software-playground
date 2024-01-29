@@ -1,0 +1,7 @@
+fastapi
+uvicorn[standard]
+torch
+torchvision
+torchaudio
+numpy
+opencv-python
