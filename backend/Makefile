@@ -16,6 +16,8 @@ stress:
 	ab -n 10000 -c 100 -g test.txt http://localhost:$(TO_PORT)/
 tests:
 	pytest --cov=main test_app.py --cov-report=xml:cov.xml -v
+locust:
+	locust -f locustfile.py
 clean:
 	find . -name '__pycache__' -type d -exec rm -rf {} +
 	find . -name 'node_modules' -type d -exec rm -rf {} +
