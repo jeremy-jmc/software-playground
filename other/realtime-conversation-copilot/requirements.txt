@@ -1,0 +1,3 @@
+replicate
+boto3
+flask
