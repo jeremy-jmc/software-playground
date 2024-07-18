@@ -1,20 +1,15 @@
+# https://docs.bentoml.com/en/v1.1.11/concepts/bento.html
 service: 'service:FasterWhisper'
 labels:
-  owner: bentoml-team
-  project: gallery
+  owner: tenken
+  project: faster_whisper_server
+  stage: dev
 include:
   - 'service.py'
   # - '*.py'
 python:
   requirements_txt: requirements.txt
-  # packages:
-  #   # - torch==2.3.1+cu118
-  #   # - faster_whisper==0.10.1
-  #   # - fastapi
-  #   # - pydub
-  #   - numpy
 docker:
-  # base_image: nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
   # https://github.com/bentoml/OpenLLM/discussions/120
   cuda_version: "11.8"
   system_packages:
