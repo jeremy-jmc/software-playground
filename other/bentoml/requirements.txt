@@ -1,0 +1,8 @@
+# # https://stackoverflow.com/questions/60912744/install-pytorch-from-requirements-txt
+--find-links https://download.pytorch.org/whl/torch_stable.html
+--extra-index-url https://download.pytorch.org/whl/cu118
+torch==2.3.1+cu118
+faster_whisper==0.10.1
+fastapi
+pydub
+numpy
