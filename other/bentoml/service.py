@@ -16,7 +16,7 @@ import subprocess
 LANGUAGE_CODE = "es"
 
 # Function extracted from pypi whisperx
-def load_audio(file: str, sr: int = 16000):
+def load_audio(file: str, sr: int = 16000) -> np.ndarray:
     try:
         cmd = [
             "ffmpeg",
@@ -44,9 +44,10 @@ def load_audio(file: str, sr: int = 16000):
 
 @bentoml.service(
     traffic={
-        "timeout": 30,
-        "concurrency": 1,
+        "timeout": 60,
+        "concurrency": 3,
     },
+    workers=3,
     resources={
         "gpu": torch.cuda.device_count(),
         # "gpu_type": "nvidia_gtx_1650",  # "nvidia_tesla_t4"
@@ -60,7 +61,7 @@ class FasterWhisper:
     def __init__(self):
         import torch
         from faster_whisper import WhisperModel
-        self.model = WhisperModel("small", device="cuda", compute_type="int8_float16")
+        self.model = WhisperModel("/tmp/medium", device="cuda", compute_type="int8_float16")
 
     
     @bentoml.api()

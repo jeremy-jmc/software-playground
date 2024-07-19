@@ -6,6 +6,7 @@ labels:
   stage: dev
 include:
   - 'service.py'
+  - '/tmp/medium/'
   # - '*.py'
 python:
   requirements_txt: requirements.txt
@@ -17,3 +18,4 @@ docker:
     - git
     - wget
     - python3-pip
+    - htop
