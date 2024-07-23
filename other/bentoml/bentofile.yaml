@@ -13,7 +13,9 @@ python:
 docker:
   # https://github.com/bentoml/OpenLLM/discussions/120
   cuda_version: "12.1"
+  # python_version: "3.9.19"
   system_packages:
+    # https://stackoverflow.com/questions/62213783/ffmpeg-error-while-loading-shared-libraries-libopenh264-so-5
     - ffmpeg
     - git
     - wget
