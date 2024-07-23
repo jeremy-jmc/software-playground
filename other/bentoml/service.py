@@ -5,6 +5,7 @@ import typing as t
 from io import BytesIO
 from pathlib import Path
 
+import time
 import bentoml
 import numpy as np
 import numpy.typing as npt
@@ -60,17 +61,21 @@ class FasterWhisper:
 
     def __init__(self):
         import torch
-        from faster_whisper import WhisperModel
-        self.model = WhisperModel("/tmp/medium", device="cuda", compute_type="int8_float16")
+        from faster_whisper import WhisperModel, BatchedInferencePipeline
+        self.model = WhisperModel("./medium", device="cuda", compute_type="int8_float16")
+        self.batched_model = BatchedInferencePipeline(model=self.model)
 
     
     @bentoml.api()
     async def transcribe(self, audio_path: Path) -> t.Dict:
         torch.cuda.empty_cache()
+        
+        start_time = time.time()
         audio = load_audio(audio_path)
         segments, transcription_info = \
-                self.model.transcribe(audio,  task="transcribe", language=LANGUAGE_CODE, word_timestamps=True)
-
+                self.batched_model.transcribe(audio, task="transcribe", language=LANGUAGE_CODE, batch_size=8, word_timestamps=True)
+        
+        # print(segments)
         transcription = ""
         words_info = []
         for segment in segments:
@@ -84,10 +89,10 @@ class FasterWhisper:
                 }
 
                 words_info.append(word_info)
-        
-        print(segments)
+        execution_time = time.time() - start_time
+        torch.cuda.empty_cache()
         return {
-            # "execution_time": execution_time,
+            "execution_time": execution_time,
             "transcription": transcription,
             "segments": words_info,
         }
@@ -131,4 +136,6 @@ bentoml list
 bentoml
 bentoml containerize faster_whisper:latest
 history
+
+bentoml build && bentoml containerize faster_whisper -t faster_whisper:latest && docker run -it --cpus 8 --gpus all --rm -p 3000:3000 faster_whisper:latest serve
 """

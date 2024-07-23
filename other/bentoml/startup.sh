@@ -7,3 +7,4 @@ nvcc --version
 docker images
 docker run -it --cpus 8 --gpus all --rm -p 3000:3000 faster_whisper:latest serve
 # -u 0 
+cd $(bentoml get BENTO_TAG -o path) && cd ./src && ls
