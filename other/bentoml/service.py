@@ -73,7 +73,8 @@ class FasterWhisper:
         start_time = time.time()
         audio = load_audio(audio_path)
         segments, transcription_info = \
-                self.batched_model.transcribe(audio, task="transcribe", language=LANGUAGE_CODE, batch_size=8, word_timestamps=True)
+                self.batched_model.transcribe(audio, task="transcribe", language=LANGUAGE_CODE, word_timestamps=True, 
+                                              batch_size=8)
         
         # print(segments)
         transcription = ""

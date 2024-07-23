@@ -5,14 +5,8 @@ V3: https://aws.amazon.com/es/sdk-for-javascript/
 https://huggingface.co/openai/whisper-tiny
 https://huggingface.co/models?pipeline_tag=automatic-speech-recognition&language=es,en&sort=trending
 https://huggingface.co/docs/transformers.js/api/pipelines#module_pipelines.AutomaticSpeechRecognitionPipeline
+https://huggingface.co/docs/transformers.js/guides/node-audio-processing
 */
-
-
-process.on('warning', (warning) => {
-  if (!warning.message.includes('[W:onnxruntime:')) {
-    console.warn(warning);
-  }
-});
 
 
 import {
@@ -25,8 +19,8 @@ import fs from "fs";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 import { pipeline } from "@xenova/transformers";
-import wavefile from 'wavefile';
-import fetch from 'node-fetch';
+import wavefile from "wavefile";
+import fetch from "node-fetch";
 
 const client = new S3Client({
   region: "us-east-1",
@@ -51,25 +45,37 @@ const getObject = async () => {
       Key: "audio/recorded_audio.wav",
     });
 
+    // No funciona porque el audio grabado desde el navegador tiene un formato diferente
     let url = await getSignedUrl(client, command, { expiresIn: 3600 });
     console.log(url);
-    // TODO: chekear porque no funciona con el signed URL
-    url = 'https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/main/jfk.wav';
+
+    url = "https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/main/jfk.wav";
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`unexpected response ${response.statusText}`);
     }
-    console.log(response);
-    let buffer = await response.arrayBuffer();
+    // console.log(response);
+    let buffer = Buffer.from(await fetch(url).then((x) => x.arrayBuffer()));
     console.log(buffer);
 
-    // Read .wav file and convert it to required format
-    let wav = new wavefile.WaveFile(new Uint8Array(buffer));
-    console.log(wav)
+    let wav = new wavefile.WaveFile(buffer);
     wav.toBitDepth("32f"); // Pipeline expects input as a Float32Array
     wav.toSampleRate(16000); // Whisper expects audio with a sampling rate of 16000
     let audioData = wav.getSamples();
-    // console.log(audioData);
+    if (Array.isArray(audioData)) {
+      if (audioData.length > 1) {
+        const SCALING_FACTOR = Math.sqrt(2);
+
+        // Merge channels (into first channel to save memory)
+        for (let i = 0; i < audioData[0].length; ++i) {
+          audioData[0][i] =
+            (SCALING_FACTOR * (audioData[0][i] + audioData[1][i])) / 2;
+        }
+      }
+
+      // Select first channel
+      audioData = audioData[0];
+    }
 
     const transcriber = await pipeline(
       "automatic-speech-recognition",
@@ -79,12 +85,12 @@ const getObject = async () => {
     let start = performance.now();
     let output = await transcriber(audioData, {
       // language: "spanish",
-      // return_timestamps: true,
+      return_timestamps: true,
       // task: "transcribe",
     });
     let end = performance.now();
     console.log(`Execution duration: ${(end - start) / 1000} seconds`);
-    
+
     console.log(output);
 
     // // Read the stream and convert it to bytes
@@ -108,15 +114,6 @@ const getObject = async () => {
   } catch (error) {
     console.error(error);
   }
-};
-
-const streamToBuffer = (stream) => {
-  return new Promise((resolve, reject) => {
-    const chunks = [];
-    stream.on("data", (chunk) => chunks.push(chunk));
-    stream.on("end", () => resolve(Buffer.concat(chunks)));
-    stream.on("error", (error) => reject(error));
-  });
 };
 
 getObject();
