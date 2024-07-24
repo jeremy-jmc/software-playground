@@ -26,7 +26,7 @@ print(torch.version.cuda)
 
 LANGUAGE_CODE = "es"
 
-warmup_sample_audio = "./segmento_000.mp3"  # AudioSegment.from_file("./segmento_000.mp3")
+warmup_sample_audio = "./segmento_059.mp3"  # AudioSegment.from_file("./segmento_000.mp3")
 # warmup_sample_audio = np.random.rand(10000).astype(np.float32)
 model = WhisperModel("medium", device="cuda", compute_type="int8_float16")
 

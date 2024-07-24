@@ -54,3 +54,19 @@ with bentoml.SyncHTTPClient('http://localhost:3000') as client:
     response = client.transcribe(audio_file=file_path)
     print(response)
 
+
+
+import requests
+whisper_api = 'http://localhost:80'
+with open('segmento_000.mp3', 'rb') as audio_file:
+    print(whisper_api)
+    request_body = {'audio': audio_file}
+    response_text = requests.post(f"{whisper_api}/predict", files=request_body).json()
+
+# se obtiene el texto y el tiempo de ejecucion
+text = response_text['transcription']
+execution_time = response_text['execution_time']
+segments = response_text['segments']
+
+print(text, segments)
+print(execution_time)
