@@ -21,5 +21,5 @@ class AudioTranscriptionTaskSet(TaskSet):
 
 class WebsiteUser(HttpUser):
     tasks = [AudioTranscriptionTaskSet]
-    wait_time = between(1, 5)  # Tiempo de espera entre tareas (en segundos)
+    wait_time = between(60, 60)  # Tiempo de espera entre tareas (en segundos)
     host = 'http://localhost:3000'  # Especificar el host base

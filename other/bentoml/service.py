@@ -44,9 +44,11 @@ def load_audio(file: str, sr: int = 16000) -> np.ndarray:
 
 
 @bentoml.service(
+    # https://docs.bentoml.com/en/latest/bentocloud/how-tos/autoscaling.html
     traffic={
         "timeout": 60,
-        "concurrency": 3,
+        "concurrency": 32,
+        "external_queue": True,
     },
     workers=3,
     resources={
