@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 import time
-from faster_whisper import WhisperModel
+from faster_whisper import WhisperModel, BatchedInferencePipeline
 import uuid
 import os
 import subprocess
@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 # load the machine learning model with Whisper
 model = WhisperModel("/tmp/medium", device="cuda", compute_type="int8_float16")
-
+batched_model = BatchedInferencePipeline(model=model)
 
 @app.route("/")
 def hello_world():
@@ -60,9 +60,9 @@ def predict():
     transcription = ""
     words_info = []
 
-    segments, _ = model.transcribe(
-        audio_path, task="transcribe", language="es", word_timestamps=True
-    )
+    segments, _ = \
+        batched_model.transcribe(audio_path, task="transcribe", language="es", word_timestamps=True, 
+                                 batch_size=8)
 
     for segment in segments:
         # transcription += segment.text
