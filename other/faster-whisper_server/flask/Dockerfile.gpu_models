@@ -1,0 +1,37 @@
+# Use the base image with CUDA and cuDNN support
+FROM nvidia/cuda:11.8.0-cudnn8-runtime-ubuntu20.04
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y git git-lfs
+RUN git lfs install
+
+# Install python and pip
+RUN apt-get update && apt-get install -y python3.8 python3-pip
+
+# Set working directory
+WORKDIR /app
+
+# Install ffmpeg
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y ffmpeg
+
+# Download the latest version of the base model
+# Available in __init__.py of the whisper library
+RUN apt-get update && apt-get install -y curl
+
+# Copy requirements file
+COPY requirements_whisper.txt .
+
+# Install dependencies
+RUN pip install -r requirements_whisper.txt
+
+# download models
+RUN python3 -c 'import faster_whisper; faster_whisper.download_model("medium", "/tmp/medium")'
+
+# CMD ["nvidia-smi"]
+
+# Expose port 8000
+EXPOSE 8000
+
+# Start gunicorn
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:8000", "--timeout", "180", "--log-level", "debug", "app_gpu_models:app"]
