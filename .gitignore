@@ -166,3 +166,15 @@ node_modules/
 *.wav
 *.mp3
 medium/
+
+*.aux
+*.bbl
+*.blg
+*.idx
+*.fdb_latexmk
+*.fls
+*.out
+*.toc
+*.log
+*.synctex.gz
+*.pdf

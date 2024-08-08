@@ -1,0 +1,78 @@
+\documentclass{article}
+\usepackage{amssymb} % Required for math symbols
+\usepackage{graphicx} % Required for inserting images
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{bibentry}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[a4paper, total={6in, 10in}]{geometry}
+
+\title{Sistema de revision de codigo de estudiantes y propuesta de mejoras al codigo usando AI Generativa}
+\author{anonymus@gg.pe}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+\tableofcontents
+\newpage
+
+% - Encontrar tecnicas de Machine Learning aplicadas a la revision de codigo en escuelas y/o universidades
+% - Encontrar herramientas de Machine Learning aplicadas a la revision de codigo en escuelas y/o universidades
+% - Encontrar experimentos similares
+% - Encontrar como se validaria"
+
+
+
+
+\section{Paper "AICodeReview: Advancing code quality with AI-enhanced reviews"}
+
+\textbf{Abstract:} This paper presents a research investigation into the application of Artificial Intelligence (AI) within code review processes, aiming to enhance the quality and efficiency of this critical activity. An IntelliJ IDEA plugin was developed to achieve this objective, leveraging GPT-3.5 as the foundational framework for automated code assessment. The tool comprehensively analyses code snippets to pinpoint syntax and semantic issues while proposing potential resolutions. The study showcases the tool's architecture, configuration methods, and diverse usage scenarios, emphasizing its effectiveness in identifying logic discrepancies and syntactical errors. Finally, the findings suggest that integrating AI-based techniques is a promising approach to streamlining the time and effort invested in code reviews, fostering advancements in overall software quality \cite{ALMEIDA2024101677}. \\
+
+\textbf{Desglose:}
+
+\begin{itemize}
+    \item \textbf{Contexto:} La revisión de código es una práctica crítica en el desarrollo de software, destinada a garantizar la calidad del código y mejorar la colaboración en equipo. Sin embargo, el proceso de revisión manual puede ser lento y propenso a errores humanos. Este trabajo investiga la aplicación de la IA en las revisiones de código para mejorar su eficiencia y eficacia \cite{ALMEIDA2024101677}.
+    
+    \item \textbf{Research Gap/Problema:} A pesar del uso generalizado de las revisiones de código, los métodos manuales a menudo carecen de consistencia y son vulnerables a errores humanos. Las herramientas actuales de revisión automática de código no siempre proporcionan la profundidad necesaria para detectar problemas complejos, como los \textit{code smells}, que pueden afectar la calidad del software \cite{ALMEIDA2024101677}.
+    
+    \item \textbf{Hallazgos/Research Fill:} El estudio encontró que el uso del plugin desarrollado para IntelliJ, \textit{AICodeReview} (GPT-3.5 wrapper), es más efectivo que la revisión manual en la identificación y refactorización de \textit{code smells}. Esto sugiere que la integración de técnicas basadas en IA puede mejorar significativamente la calidad del código y la confiabilidad del software \cite{ALMEIDA2024101677}.
+    
+    \item \textbf{Limitaciones:} La evaluación preliminar de \textit{AICodeReview} se realizó con estudiantes de pregrado, lo que no representa a desarrolladores profesionales, pero el mismo experimento se puede realizar en un grupo profesional y uniforme en sus capacidades. Además, el estudio se centró en un conjunto limitado de \textit{code smells} y no incluyó una comparación exhaustiva con otras herramientas de revisión automática de código \cite{ALMEIDA2024101677}.
+    
+    % \item \textbf{Datasets:}
+    
+    \item \textbf{Métricas:} Se emplearon métricas como el tiempo de revisión, la cantidad de \textit{code smells} detectados y refactorizados, y la efectividad de la herramienta en la mejora de la calidad del código. El tamaño del efecto de Cohen (\textit{Cohen's d}) se utilizó para analizar las diferencias entre los grupos experimental y de control \cite{ALMEIDA2024101677}.
+\end{itemize}
+
+\textbf{Keypoints:}
+
+\begin{itemize}
+    \item \textbf{Técnica de ML/DL aplicada:} Se desarrollo un plugin para Intelligence que usa GPT3.5 por detrás, el código está disponible en \href{https://github.com/ElsevierSoftwareX/SOFTX-D-23-00603}{GitHub}.
+    
+    \item \textbf{Metodología:} Se dividió a los participantes en dos grupos: uno usando la herramienta \textit{AICodeReview} y otro realizando revisiones manuales. Se analizaron segmentos de código con aproximadamente 30 tipos diferentes de \textit{code smells} para comparar la efectividad de ambos métodos \cite{ALMEIDA2024101677}.
+    
+    \item \textbf{Experimentos:} La evaluación empírica involucró a 12 estudiantes de pregrado con conocimientos básicos de programación en Java y experiencia en el uso de IntelliJ IDEA. Se les capacitó en el uso de la herramienta antes de realizar las tareas de revisión \cite{ALMEIDA2024101677}.
+    
+    \item \textbf{Validación:} La validez interna del estudio se mantuvo mediante la división estratégica de los participantes y el establecimiento de un nivel de competencia base a través de sesiones de capacitación. Se emplearon métricas de validez concluyente, como el tiempo de revisión y el número de \textit{code smells} detectados y refactorizados \cite{ALMEIDA2024101677}.
+\end{itemize}
+
+% \subsection*{Resumen}
+
+You can find the paper \href{https://www.sciencedirect.com/science/article/pii/S2352711024000487}{here}.
+
+% \subsection*{Comentarios adicionales}
+
+
+\bibliographystyle{plain}
+\bibliography{bibliography}
+
+
+\end{document}
+
+% https://tug.ctan.org/info/undergradmath/undergradmath.pdf
+% https://github.com/jeremy-jmc/CS4054-Net/blob/main/labs/l4/informe/main.tex
