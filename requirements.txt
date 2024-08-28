@@ -31,3 +31,6 @@ code2flow
 locust
 bentoml
 pytest
+google-cloud-storage
+sqlalchemy
+pyodbc

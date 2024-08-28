@@ -1,0 +1,51 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Plantilla para crear una Maquina Virtual en EC2 usando una AMI especifica (Cloud9Ubuntu22-2024-08-22T16-06)"
+
+Parameters:
+  InstanceName:
+    Type: String
+    Default: "MV Reemplazar"
+    Description: "Nombre de la instancia a crear"
+  AMI:
+    Type: String
+    Default: "ami-0aa28dab1f2852040"
+    Description: "ID de AMI"
+
+Resources:
+  EC2Instance:
+    Type: "AWS::EC2::Instance"
+    Properties:
+      Tags:
+        - Key: "Name"
+          Value: !Ref InstanceName
+      ImageId: !Ref AMI
+      InstanceType: "t2.micro"
+      KeyName: "vockey"
+      SecurityGroupIds:
+        - !Ref InstanceSecurityGroup
+      BlockDeviceMappings:
+        - DeviceName: /dev/sda1
+          Ebs:
+            VolumeSize: "20"
+
+  InstanceSecurityGroup:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      GroupDescription: "Permitir trafico SSH y HTTP desde cualquier lugar"
+      SecurityGroupIngress:
+        - IpProtocol: "tcp"
+          FromPort: "22"
+          ToPort: "22"
+          CidrIp: "0.0.0.0/0"
+        - IpProtocol: "tcp"
+          FromPort: "80"
+          ToPort: "80"
+          CidrIp: "0.0.0.0/0"
+
+Outputs:
+  InstanceId:
+    Description: "ID de la instancia EC2"
+    Value: !Ref EC2Instance
+  InstancePublicIP:
+    Description: "IP publica de la instancia"
+    Value: !GetAtt EC2Instance.PublicIp
