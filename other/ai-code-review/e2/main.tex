@@ -1,0 +1,94 @@
+\documentclass[a4paper,10pt]{article}
+
+% Paquetes
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[margin=1.25in]{geometry} % Márgenes más amplios
+
+% Título
+\title{Mejora de calidad de código en educación de ciencias de la computación mediante herramientas de IA}
+\author{anonymus@gg.ra}
+\date{\today}
+
+\begin{document}
+
+% Título y autor
+\maketitle
+
+% Tabla de contenidos
+\tableofcontents
+\newpage
+
+% Sección 1: Introducción
+\section{Introducción}
+
+Recent research explores the integration of AI tools in computer science education to improve code quality and enhance learning experiences. Liu et al. (2024) \cite{Liu2024TeachingCW} developed AI-based tools for CS50 at Harvard, providing personalized tutoring and improving code style. Their findings suggest that thoughtful AI integration enhances learning by offering continuous, customized support. Lau \& Guo (2023) \cite{Lau2023FromI} interviewed programming instructors worldwide, revealing diverse perspectives on adapting courses to AI coding tools, with some favoring bans and others advocating integration. Cernau et al. (2022) \cite{Cernau2022APA} proposed an interdisciplinary approach combining software engineering and AI courses, using machine learning to assess code quality and detect bugs. This approach aims to help students understand the importance of writing high-quality code while applying AI techniques. These studies highlight the potential of AI tools in computer science education to improve code quality, provide personalized support, and prepare students for future careers.
+
+\newpage
+% Sección 2: Marco Teórico
+\section{Marco Teórico}
+
+En el ámbito de la educación en ciencias de la computación, la calidad del código se refiere a un conjunto de características que determinan el valor de un software en términos de su mantenibilidad, eficiencia, legibilidad y capacidad de ser reutilizado. La mejora de la calidad del código es un objetivo fundamental en la formación de estudiantes de ciencias de la computación, ya que un código de alta calidad es crucial para el desarrollo de software robusto y sostenible.
+
+\textbf{Calidad de Código:} La calidad del código se evalúa en función de varios criterios, incluyendo la corrección, que se refiere a la capacidad del código para producir los resultados esperados; la legibilidad, que implica que el código sea fácil de entender para otros desarrolladores; la mantenibilidad, que se relaciona con la facilidad con la que el código puede ser modificado y actualizado; y la eficiencia, que se refiere al uso óptimo de recursos como tiempo de ejecución y memoria. Herramientas de análisis estático y técnicas de revisión de código son métodos tradicionales para asegurar estos aspectos \cite{puryear2022github}.
+
+\textbf{Herramientas de Inteligencia Artificial (IA) en la Codificación:} Las herramientas basadas en IA, como GitHub Copilot y los sistemas desarrollados para cursos como CS50, han emergido como soluciones avanzadas para mejorar la calidad del código en el contexto educativo. Estas herramientas utilizan modelos de lenguaje grandes (LLMs) para generar automáticamente fragmentos de código, proporcionar sugerencias de estilo, y ofrecer explicaciones detalladas de código, lo que ayuda a los estudiantes a escribir código más limpio y eficiente \cite{Liu2024TeachingCW}.
+
+\textbf{Entornos de Desarrollo Asistidos por Inteligencia Artificial (AIDEs):} Los AIDEs son plataformas que integran capacidades de IA para ayudar a los desarrolladores a escribir código. Estos entornos no solo completan código basado en entradas textuales o comentarios, sino que también son capaces de analizar el código en tiempo real para sugerir mejoras de estilo, detectar posibles errores y optimizar la estructura del código. Estas herramientas, al estar integradas en los entornos de desarrollo, proporcionan un soporte continuo y personalizado, lo que puede ser particularmente útil para estudiantes en etapas iniciales de aprendizaje de la programación \cite{puryear2022github}.
+
+\textbf{Educación en Ciencias de la Computación y Mejora de la Calidad del Código:} En el contexto educativo, la implementación de herramientas de IA tiene el potencial de transformar la enseñanza de la programación al automatizar la retroalimentación y proporcionar ejemplos concretos de código de alta calidad. Esto no solo mejora la comprensión de los conceptos fundamentales por parte de los estudiantes, sino que también les inculca mejores prácticas de programación desde etapas tempranas. Sin embargo, es crucial que estas herramientas sean utilizadas como un complemento al aprendizaje activo, donde los estudiantes desarrollen habilidades críticas de resolución de problemas y no dependan exclusivamente de la IA para generar soluciones \cite{Liu2024TeachingCW}.
+
+
+\textbf{Interacción Humano-Computadora en la Enseñanza de Programación:} La interacción entre los estudiantes y las herramientas de programación asistidas por inteligencia artificial, como GitHub Copilot, redefine la dinámica de enseñanza y aprendizaje en cursos de ciencias de la computación. Estas herramientas no solo sirven como asistentes en la generación de código, sino que también actúan como plataformas de aprendizaje que fomentan la exploración y la experimentación en entornos de desarrollo. Sin embargo, el uso de estas tecnologías plantea interrogantes sobre la dependencia tecnológica y la necesidad de equilibrar la asistencia automática con el desarrollo de habilidades fundamentales en programación. La incorporación de Copilot en la educación, por tanto, requiere un enfoque pedagógico que maximice su potencial sin comprometer el aprendizaje activo y crítico \cite{menon2023exploring}.
+
+
+\textbf{Modelos de Lenguaje Grandes (LLMs) en la Educación de Ciencias de la Computación:} Los modelos de lenguaje grandes, como ChatGPT, han demostrado ser herramientas poderosas en la educación de ciencias de la computación, especialmente en la generación de código, la evaluación de problemas y la asistencia en tiempo real. Estos modelos permiten a los estudiantes interactuar con un "asistente virtual" que puede proporcionar sugerencias, correcciones y explicaciones detalladas sobre problemas de programación, lo que potencialmente mejora la calidad del código escrito por los estudiantes y acelera su proceso de aprendizaje. Sin embargo, el uso de LLMs también plantea desafíos éticos y pedagógicos, como la posibilidad de fomentar la dependencia de la herramienta y la formación de modelos mentales incorrectos si las respuestas proporcionadas son inexactas o malinterpretadas \cite{Wang2023ExploringTR}.
+
+% Sección 3: Estado del Arte
+\section{Estado del Arte}
+
+\subsection*{Teaching CS50 with AI: Leveraging Generative Artificial Intelligence in Computer Science Education}
+
+En el ámbito de la educación en ciencias de la computación, el uso de la IA ha revolucionado la forma en que se enseña y aprende programación. Liu et al. (2024) \cite{Liu2024TeachingCW} documentan la implementación de herramientas basadas en IA en el curso CS50 de la Universidad de Harvard, donde desarrollaron un conjunto de herramientas que incluye un asistente virtual conocido como "CS50 Duck", capaz de proporcionar respuestas precisas a consultas curriculares y administrativas. Esta herramienta no solo ha mejorado la experiencia de aprendizaje de los estudiantes, sino que también ha permitido a los instructores enfocarse en problemas pedagógicos más complejos.
+
+\subsection*{Github copilot in the classroom: learning to code with AI assistance}
+
+El uso de inteligencia artificial en el aula de ciencias de la computación ha sido objeto de un creciente interés investigativo. Puryear y Sprint (2022) \cite{puryear2022github} realizaron una investigación sobre el impacto de GitHub Copilot en la enseñanza de la programación, evaluando la capacidad de esta herramienta para generar soluciones de código en cursos introductorios de ciencias de la computación y ciencia de datos. Los resultados mostraron que Copilot puede generar soluciones de código con puntuaciones que varían entre el 68\% y el 95\%, lo que indica su potencial para asistir a los estudiantes en la resolución de tareas de programación de manera efectiva.
+
+A pesar de sus beneficios, el uso de AIDEs plantea desafíos importantes, como la posibilidad de que los estudiantes se vuelvan demasiado dependientes de estas herramientas y no desarrollen las habilidades necesarias para resolver problemas por sí mismos. Además, la investigación destaca preocupaciones relacionadas con la calidad del código generado, que puede contener errores lógicos o no seguir las mejores prácticas de codificación. Estos desafíos subrayan la necesidad de adaptar los métodos de enseñanza para garantizar que los estudiantes no solo aprendan a usar AIDEs, sino que también adquieran una comprensión profunda del código que generan.
+
+\subsection*{Exploring GitHub Copilot assistance for working with classes in a programming course}
+
+En su artículo, Menon (2023) \cite{menon2023exploring} explora el uso de GitHub Copilot como asistente de programación en cursos de introducción a la programación orientada a objetos (OOP). El estudio se centra en cómo Copilot puede ayudar a los estudiantes a escribir código asociado con clases predefinidas y crear nuevas clases basadas en los requisitos de una aplicación. A través de un estudio cualitativo, Menon analiza los desafíos y beneficios de utilizar Copilot en un entorno educativo, señalando que aunque Copilot puede generar código funcional, los estudiantes aún necesitan una comprensión sólida de los conceptos de programación para validar y ajustar las soluciones propuestas por la IA. El autor también destaca la necesidad de adaptar la enseñanza para incluir problemas más complejos que requieran una explicación de las elecciones de diseño y código, en lugar de depender únicamente de la generación automática de soluciones.
+
+\subsection*{Innovating Computer Programming Pedagogy: The AI-Lab Framework for Generative AI Adoption}
+
+El artículo de Dickey et al. (2023) \cite{dickey2023innovatingcomputerprogrammingpedagogy} presenta un enfoque innovador para la adopción de IA generativa en la enseñanza de la programación, denominado AI-Lab Framework. Este marco se propone como una solución pedagógica para guiar el uso de herramientas GenAI en cursos de programación a nivel universitario. El objetivo principal del AI-Lab es equilibrar el uso de GenAI para maximizar los beneficios pedagógicos al tiempo que se minimizan los riesgos asociados con la dependencia excesiva de estas herramientas.
+
+El estudio introduce el concepto de la "Junior-Year Wall", que describe el fenómeno donde estudiantes que han dependido excesivamente de GenAI en cursos introductorios enfrentan dificultades en cursos avanzados debido a lagunas en su comprensión de habilidades fundamentales. Para abordar este desafío, el AI-Lab Framework incluye una serie de actividades estructuradas que enfatizan la importancia de la adquisición de habilidades básicas, utilizando GenAI como herramienta de apoyo en lugar de reemplazo de las capacidades del estudiante.
+
+La implementación del marco en un curso de estructuras de datos y algoritmos mostró resultados preliminares positivos, con los estudiantes participando activamente en la corrección de errores generados por GenAI, lo que sugiere que este enfoque podría ser eficaz para integrar herramientas de IA en la educación sin comprometer el desarrollo de habilidades esenciales en ciencias de la computación.
+
+\subsection*{Exploring the Role of AI Assistants in Computer Science Education: Methods, Implications, and Instructor Perspectives}
+
+El estudio realizado por Wang et al. (2023) \cite{Wang2023ExploringTR} evalúa el impacto de los asistentes de inteligencia artificial, como ChatGPT, en la educación de ciencias de la computación. La investigación se centra en cómo estos asistentes pueden resolver una variedad de problemas en cursos de pregrado de diferentes niveles y tópicos. Además, se exploran métodos para modificar los problemas académicos con el fin de minimizar el mal uso potencial de estas herramientas por parte de los estudiantes. A través de entrevistas semi-estructuradas con instructores, el estudio revela preocupaciones sobre la equidad académica y los efectos a largo plazo en los modelos mentales de los estudiantes. Los resultados sugieren la necesidad de desarrollar herramientas y estrategias que permitan a los instructores adaptar los materiales educativos para aprovechar las capacidades de los asistentes de IA, promoviendo un aprendizaje más efectivo y ético.
+
+% Sección 4: Metodología
+\section{Metodología}
+% En esta sección, se describe la metodología utilizada para llevar a cabo la investigación, incluyendo el diseño de la investigación, la recolección de datos y el análisis.
+
+% Sección 5: Resultados
+\section{Resultados}
+% Aquí se presentan los resultados obtenidos de la investigación y el análisis de los datos.
+
+% Sección 6: Conclusión
+\section{Conclusión}
+% Se presentan las conclusiones derivadas de los resultados obtenidos y se sugieren posibles líneas de investigación futura.
+
+\bibliographystyle{plain}
+\bibliography{bibliography}
+
+\end{document}
